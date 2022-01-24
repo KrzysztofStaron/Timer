@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://main/Timer/font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://main/onStopButtons/normalStyle.tres" type="StyleBox" id=2]
+[ext_resource path="res://mononoki/mononoki-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://main/Timer/timerText.cs" type="Script" id=4]
+[ext_resource path="res://main/Timer/timer.cs" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ButtonGroup" id=4]
+
+[node name="timer" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="text" type="RichTextLabel" parent="."]
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+margin_top = 130.0
+margin_right = 1277.0
+margin_bottom = 206.0
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = ExtResource( 1 )
+text = "00.00.00"
+fit_content_height = true
+scroll_active = false
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.196078 )
+margin_left = -4.0
+margin_top = -2.0
+margin_right = 1288.0
+margin_bottom = 589.0
+focus_mode = 0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/disabled = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+enabled_focus_mode = 0
+group = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="setText" from="." to="text" method="setText"]
+[connection signal="button_down" from="Button" to="." method="_on_down"]
+[connection signal="button_up" from="Button" to="." method="_on_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
